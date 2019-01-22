@@ -1,4 +1,4 @@
-# Desafio para vaga de analista pleno/sênior
+# Desafio para vaga de analista júnior
 
 ## Considerações Gerais
 
