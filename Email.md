@@ -10,6 +10,6 @@ Com isso, iremos avaliar sua solução de acordo com o tempo estimado, quanto ma
 
 É importante que você mantenha a rastreabilidade do seu trabalho através de commits, assim conseguimos acompanhar a evolução do seu trabalho.
 
-Em caso de dúvidas durante a execução do teste, entre em contato com o reponsável pelo seu processo seletivo para que suas dúvidas sejam encaminhadas ao corpo técnico de avaliação.
+Em caso de dúvidas durante a execução do teste, entre em contato comigo para que suas dúvidas sejam encaminhadas ao corpo técnico de avaliação.
 
 Boa sorte!
