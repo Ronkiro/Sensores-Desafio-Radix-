@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Font Awesome
 - Material-UI
 - material-table
+- Victory.js
+- Moment
 
 ## Available Scripts
 
