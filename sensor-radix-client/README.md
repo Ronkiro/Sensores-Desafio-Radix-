@@ -2,6 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Tecnologias utilizadas
 - React
 - Font Awesome
+- Material-UI
 
 ## Available Scripts
 
