@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - React
 - Font Awesome
 - Material-UI
+- material-table
 
 ## Available Scripts
 
