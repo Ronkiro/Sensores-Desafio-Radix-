@@ -15,6 +15,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import moment from 'moment';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -55,7 +56,10 @@ class Table extends Component {
         
         fetch(this.API_URL + param )
             .then(response => response.json())
-            .then(data => this.setState({ data: data }))
+            .then(data => {
+              data.map(e => e.timestamp = moment(e.timestamp).toDate() )
+              this.setState({ data: data }) 
+            })
             .catch(err => {
                 console.log(err)
             } )
@@ -81,7 +85,7 @@ class Table extends Component {
               { title: "ID", field: "id", type: "numeric"},
               { title: "Tag", field: "tag" },
               { title: "Valor", field: "valor", type: "numeric"},
-              { title: "Estado", field: "status", type: "datetime" },
+              { title: "Estado", field: "status" },
               { title: "Horário", field: "timestamp", type: "datetime" },
             ]}
             title="Eventos"
