@@ -81,6 +81,7 @@ class Table extends Component {
               { title: "ID", field: "id", type: "numeric"},
               { title: "Tag", field: "tag" },
               { title: "Valor", field: "valor", type: "numeric"},
+              { title: "Estado", field: "status", type: "datetime" },
               { title: "Horário", field: "timestamp", type: "datetime" },
             ]}
             title="Eventos"

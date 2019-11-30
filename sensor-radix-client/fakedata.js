@@ -9,12 +9,19 @@ let generateWorkers = () => {
         let timestamp = faker.date.recent();
         let tag = tags[faker.random.number(tags.length-1)];
         let valor = faker.random.number();
+        let estado = "processado"
+        
+        if(id % 5 == 0) {
+            estado = "erro"
+            valor = ""
+        }
 
         workers.push({
             "id": id,
             "timestamp": timestamp,
             "tag": tag,
-            "valor": valor
+            "valor": valor,
+            "status": estado
         });
     }
 
