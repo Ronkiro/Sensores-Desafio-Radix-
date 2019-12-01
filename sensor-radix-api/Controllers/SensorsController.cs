@@ -49,13 +49,15 @@ namespace sensor_radix_api.Controllers
         public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
         {
             /* Tag tem formato <país>.<região>.<sensor> */
-            bool tagOk = sensor.Tag.Split('.').Count() != TAG_FORMAT_COUNT;
+            bool tagOk = sensor.Tag.Split('.').Count() == TAG_FORMAT_COUNT;
 
             /* Valor vem como string mas tem que ser parsable como int */
-            bool valorOk = Int32.TryParse(sensor.Valor, out int buffer);
+            bool valorOk = Int32.TryParse(sensor.Valor, out int valor);
 
-            if (tagOk && valorOk)
+            if (tagOk)
             {
+                sensor.Status = valorOk ? "Processado" : "Erro";
+
                 _context.Sensors.Add(sensor);
                 await _context.SaveChangesAsync();
 
