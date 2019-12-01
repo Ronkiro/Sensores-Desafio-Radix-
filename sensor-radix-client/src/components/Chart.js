@@ -42,7 +42,7 @@ class Chart extends React.Component {
     }
 
     fetchData = () => {
-        const param = 'data'
+        const param = process.env.NODE_ENV == "production" ? '' : 'data'
         
         fetch(this.API_URL + param )
             .then(response => response.json())
