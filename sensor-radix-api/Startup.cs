@@ -29,11 +29,7 @@ namespace sensor_radix_api
         {
             services.AddDbContext<SensorContext>(opt =>
                opt.UseInMemoryDatabase("SensorList"));
-            services.AddControllers()
-                .ConfigureApiBehaviorOptions(options =>
-                {
-                    options.SuppressModelStateInvalidFilter = true;
-                });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

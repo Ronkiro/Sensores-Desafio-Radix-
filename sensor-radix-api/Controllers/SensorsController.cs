@@ -14,6 +14,7 @@ namespace sensor_radix_api.Controllers
     public class SensorsController : ControllerBase
     {
         private readonly SensorContext _context;
+        private const int TAG_FORMAT_COUNT = 3;
 
         public SensorsController(SensorContext context)
         {
@@ -42,45 +43,26 @@ namespace sensor_radix_api.Controllers
         }
 
         // POST: api/Sensors
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Sensor>> PostSensor([FromBody] InputSensor sensor)
-        {    
-            // Validação do Timestamp
-            DateTime dtDateTime;
-            if(sensor.Timestamp > 1) {
-                var isDateTimeParsable = long.TryParse(sensor.Timestamp.ToString(), 
-                                                    out var unixTimeStamp);
-                
-                if(!isDateTimeParsable) { return BadRequest(); } // Não é um UnixTimeStamp
-                
-                dtDateTime = UnixToDateTime(unixTimeStamp);
-            } else { dtDateTime = DateTime.Now; }
-
-            // Validação do valor e processamento de status
-            bool isValorParsed = Int32.TryParse(sensor.Valor, out int valor);
-            string status = isValorParsed ? "Processado" : "Erro";
-            
-            // Validação da tag
-            var tag = sensor.Tag.Split('.');
-            if(tag.Count() != 3) { return BadRequest(); }
-
-            Sensor newSensor = new Sensor {
-                Tag = sensor.Tag,
-                Valor = valor,
-                Timestamp = dtDateTime,
-                Status = status
-            };
-
-            _context.Sensors.Add(newSensor);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSensor", new { id = newSensor.Id }, newSensor);
-        }
-
-        private DateTime UnixToDateTime(long timeStamp)
+        public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
         {
-            System.DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
-            return dtDateTime.AddSeconds( timeStamp ).ToLocalTime();
+            /* Tag tem formato <país>.<região>.<sensor> */
+            bool tagOk = sensor.Tag.Split('.').Count() != TAG_FORMAT_COUNT;
+
+            /* Valor vem como string mas tem que ser parsable como int */
+            bool valorOk = Int32.TryParse(sensor.Valor, out int buffer);
+
+            if (tagOk && valorOk)
+            {
+                _context.Sensors.Add(sensor);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetSensor", new { id = sensor.Id }, sensor);
+            }
+
+            return UnprocessableEntity();
         }
 
         private bool SensorExists(long id)
