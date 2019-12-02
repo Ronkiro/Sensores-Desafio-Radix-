@@ -60,6 +60,7 @@ class OverviewTable extends Component {
             .then(response => response.json())
             .then(data => {
               let groupedData = lodash.groupBy(data, 'tag') // { "brasil.sudeste.sensor01": <data> }
+              console.log(groupedData)
               Object.keys(groupedData).forEach((key, index) => {
                   let keyArr = key.split('.') // separando em [país, região, sensor]
                   keyArr.pop()
