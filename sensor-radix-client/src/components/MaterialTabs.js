@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 export default function MaterialTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const { TabComponent1, TabComponent2 } = props;
+  const { TabComponent1, TabComponent2, TabComponent3 } = props;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -35,6 +35,7 @@ export default function MaterialTabs(props) {
         >
           <Tab label="Gráfico" />
           <Tab label="Tabela" />
+          <Tab label="Overview" />
         </Tabs>
       </header>
       <main>
@@ -43,6 +44,9 @@ export default function MaterialTabs(props) {
         </TabPanel>
         <TabPanel value={value} index={1}>
             { TabComponent2 }
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+            { TabComponent3 }
         </TabPanel>
       </main>
     </Paper>
