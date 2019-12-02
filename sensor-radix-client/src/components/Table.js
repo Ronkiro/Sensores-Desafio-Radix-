@@ -48,11 +48,12 @@ class Table extends Component {
                         process.env.REACT_APP_API_URL.substring(0, process.env.REACT_APP_API_URL.length-1) : 
                         process.env.REACT_APP_API_URL 
         const API_PORT = process.env.REACT_APP_API_PORT
-        this.API_URL = API_URL + ':' + API_PORT + '/'
+        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX ? process.env.REACT_APP_API_SUFFIX : ""
+        this.API_URL = API_URL + ':' + API_PORT + '/' + API_SUFFIX
     }
 
     fetchData = () => {
-        const param = 'data'
+        const param = process.env.NODE_ENV == "production" ? '' : 'data'
         
         fetch(this.API_URL + param )
             .then(response => response.json())
@@ -86,7 +87,7 @@ class Table extends Component {
               { title: "Tag", field: "tag" },
               { title: "Valor", field: "valor", type: "numeric"},
               { title: "Estado", field: "status" },
-              { title: "Horário", field: "timestamp", type: "datetime" },
+              { title: "Horário", field: "timestampDt", type: "datetime" },
             ]}
             title="Eventos"
             options={{

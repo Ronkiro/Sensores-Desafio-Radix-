@@ -17,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock:api": "json-server fakedata.js --port 4000"
+    "mock:api": "json-server fakedata.js --port 4000",
+    "serve": "npm run build && serve -S build -l 1234"
   },
   "eslintConfig": {
     "extends": "react-app"
