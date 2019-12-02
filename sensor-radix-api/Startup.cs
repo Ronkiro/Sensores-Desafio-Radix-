@@ -38,8 +38,14 @@ namespace sensor_radix_api
                 options.AddPolicy("AllowAnyOrigin",
                     builder => builder.AllowAnyOrigin());
             });
-            services.AddDbContext<SensorContext>(opt =>
-               opt.UseInMemoryDatabase("SensorList"));
+            if(env.IsDevelopment()) {
+                services.AddDbContext<SensorContext>(opt =>
+                    opt.UseInMemoryDatabase("SensorList"));
+            }
+            else {
+                services.AddDbContext<SensorContext>(opt => 
+                    opt.UseSqlServer(Environment.GetEnvironmentVariable("ASPNETCORE_SQLCONNSTR")));
+            }
             services.AddControllers();
             
         }
