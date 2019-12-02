@@ -29,14 +29,22 @@ namespace sensor_radix_api
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowMyOrigin", 
-                    builder => builder.WithOrigins("http://localhost:1234",
-                                                   "http://localhost:5000",
-                                                   "http://10.0.0.100:1234")
-                                      .AllowAnyMethod()
-                                      .AllowAnyHeader()); 
+                if(env.isDevelopment()) 
+                {
+                    options.AddPolicy("AllowMyOrigin", 
+                        builder => builder.WithOrigins("http://localhost:1234",
+                                                    "http://localhost:5000",
+                                                    "http://10.0.0.100:1234")
+                                          .AllowAnyMethod()
+                                          .AllowAnyHeader()); 
+                }
+                else {
+                    builder => builder.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_URL"))
+                                          .AllowAnyMethod()
+                                          .AllowAnyHeader()); 
+                }
                 options.AddPolicy("AllowAnyOrigin",
-                    builder => builder.AllowAnyOrigin());
+                        builder => builder.AllowAnyOrigin());
             });
             if(env.IsDevelopment()) {
                 services.AddDbContext<SensorContext>(opt =>
