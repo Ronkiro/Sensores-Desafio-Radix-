@@ -22,8 +22,9 @@ class Chart extends React.Component {
                         process.env.REACT_APP_API_URL.substring(0, process.env.REACT_APP_API_URL.length-1) : 
                         process.env.REACT_APP_API_URL 
         const API_PORT = process.env.REACT_APP_API_PORT
-        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX
+        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX ? process.env.REACT_APP_API_SUFFIX : ""
         this.API_URL = API_URL + ':' + API_PORT + '/' + API_SUFFIX
+        console.log("Starting data with API ", this.API_URL)
     }
 
     mapGroups = () => {
