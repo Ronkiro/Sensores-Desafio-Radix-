@@ -15,7 +15,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import moment from 'moment';
+import lodash from 'lodash';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -37,7 +37,7 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
   };
 
-class Table extends Component {
+class OverviewTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -53,17 +53,37 @@ class Table extends Component {
     }
 
     fetchData = () => {
-        const param = process.env.NODE_ENV === "production" ? '' : 'data'
-        
+        const param = process.env.NODE_ENV === "production" ? '' : 'data';
+        let myData = {}
+
         fetch(this.API_URL + param )
             .then(response => response.json())
             .then(data => {
-              data.map(e => e.timestamp = moment(e.timestamp).toDate() )
-              this.setState({ data: data }) 
+              let groupedData = lodash.groupBy(data, 'tag') // { "brasil.sudeste.sensor01": <data> }
+              console.log(groupedData)
+              Object.keys(groupedData).forEach((key, index) => {
+                  let keyArr = key.split('.') // separando em [país, região, sensor]
+                  keyArr.pop()
+                  let regionKey = keyArr.join('.')
+                  keyArr.pop()
+                  let countryKey = keyArr
+                  myData = {
+                      ...myData,
+                      [key]: groupedData[key].length,
+                      [regionKey]: myData.hasOwnProperty(regionKey) ? myData.regionKey + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0,
+                      [countryKey]: myData.hasOwnProperty(countryKey) ? myData[countryKey] + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0
+                  } 
+              });
+
+              // Formatando dados para caberem na tabela.
+              let tableData = []
+              Object.keys(myData).forEach((key, index) => {
+                    let sensorGroup = { regiao: key, qtd: myData[key]}
+                    tableData.push(sensorGroup)
+              })
+              this.setState({ data: tableData }) // Add na tabela.
             })
-            .catch(err => {
-                console.log(err)
-            } )
+            .catch(err => console.log(err))
     }
 
     componentDidMount() {
@@ -83,13 +103,10 @@ class Table extends Component {
           <MaterialTable
             icons={tableIcons}
             columns={[
-              { title: "ID", field: "id", type: "numeric"},
-              { title: "Tag", field: "tag" },
-              { title: "Valor", field: "valor", type: "numeric"},
-              { title: "Estado", field: "status" },
-              { title: "Horário", field: "timestampDt", type: "datetime" },
+              { title: "Região", field: "regiao" },
+              { title: "Quantidade de Eventos", field: "qtd", type: "numeric"},
             ]}
-            title="Eventos"
+            title="Overview dos Eventos"
             options={{
                 exportButton: true
             }}
@@ -101,4 +118,4 @@ class Table extends Component {
     }
 }
 
-export default Table;
+export default OverviewTable;

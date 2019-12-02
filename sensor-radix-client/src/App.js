@@ -4,7 +4,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import FirstTab from './components/FirstTab'
 import SecondTab from './components/SecondTab'
-
+import ThirdTab from './components/ThirdTab'
 
 const theme = createMuiTheme({
   palette: {
@@ -18,8 +18,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <MaterialTabs 
-        TabComponent1={<FirstTab />}
-        TabComponent2={<SecondTab />}
+        TabComponent1={ <FirstTab /> }
+        TabComponent2={ <SecondTab />}
+        TabComponent3={ <ThirdTab /> }
       />
     </ThemeProvider>
   );

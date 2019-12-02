@@ -13,7 +13,7 @@ let generateWorkers = () => {
         
         if(id % 5 == 0) {
             estado = "erro"
-            valor = ""
+            valor = null
         }
 
         workers.push({
