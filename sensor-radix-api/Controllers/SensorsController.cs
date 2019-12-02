@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace sensor_radix_api.Controllers
 
         // GET: api/Sensors
         [HttpGet]
+        [EnableCors("AllowAnyOrigin")]
         public async Task<ActionResult<IEnumerable<Sensor>>> GetSensors()
         {
             return await _context.Sensors.ToListAsync();
@@ -30,6 +32,7 @@ namespace sensor_radix_api.Controllers
 
         // GET: api/Sensors/5
         [HttpGet("{id}")]
+        [EnableCors("AllowAnyOrigin")]
         public async Task<ActionResult<Sensor>> GetSensor(long id)
         {
             var sensor = await _context.Sensors.FindAsync(id);
@@ -46,6 +49,7 @@ namespace sensor_radix_api.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [EnableCors("AllowAnyOrigin")]
         public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
         {
             /* Tag tem formato <país>.<região>.<sensor> */

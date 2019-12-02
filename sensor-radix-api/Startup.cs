@@ -27,9 +27,21 @@ namespace sensor_radix_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin", 
+                    builder => builder.WithOrigins("http://localhost:1234",
+                                                   "http://localhost:5000",
+                                                   "http://10.0.0.100:1234")
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()); 
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder.AllowAnyOrigin());
+            });
             services.AddDbContext<SensorContext>(opt =>
                opt.UseInMemoryDatabase("SensorList"));
             services.AddControllers();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,9 +52,16 @@ namespace sensor_radix_api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(options => {
+                options.WithOrigins("http://localhost:1234",
+                                    "http://localhost:5000",
+                                    "http://10.0.0.100:1234");
+            });
 
             app.UseAuthorization();
 
