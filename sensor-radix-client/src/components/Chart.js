@@ -22,7 +22,8 @@ class Chart extends React.Component {
                         process.env.REACT_APP_API_URL.substring(0, process.env.REACT_APP_API_URL.length-1) : 
                         process.env.REACT_APP_API_URL 
         const API_PORT = process.env.REACT_APP_API_PORT
-        this.API_URL = API_URL + ':' + API_PORT + '/'
+        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX
+        this.API_URL = API_URL + ':' + API_PORT + '/' + API_SUFFIX
     }
 
     mapGroups = () => {
@@ -42,7 +43,7 @@ class Chart extends React.Component {
     }
 
     fetchData = () => {
-        const param = 'data'
+        const param = process.env.NODE_ENV === "production" ? '' : 'data'
         
         fetch(this.API_URL + param )
             .then(response => response.json())
