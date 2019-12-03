@@ -97,7 +97,7 @@ class Chart extends React.Component {
             legendData.push(this.buildLegend(key))
         })
         return(
-            <main style={{ "display": "flex", "justify-content": "center"}}>
+            <main style={{ "display": "flex", "justifyContent": "center"}}>
                 <div style={{ "display" : "inline-flex" }}>
                     <VictoryChart 
                         theme={ VictoryTheme.material } 

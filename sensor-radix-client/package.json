@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "faker": "^4.1.0",
-    "json-server": "^0.15.1"
+    "json-server": "^0.15.1",
+    "react-test-renderer": "^16.12.0"
   }
 }
