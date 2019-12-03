@@ -1,0 +1,37 @@
+dotnet:
+  stages:
+      - test
+      - build
+      - deploy
+
+react:
+  image: node:13.0.1
+  stages:
+    - code-quality
+    - test
+    - build
+
+  client-test:
+    stage: test
+    before_script:
+      - cd sensor-radix-client
+      - npm install
+    script: 
+      - npm test
+
+  eslint:
+    stage: code-quality
+    before_script:
+      - cd sensor-radix-client
+      - npm install -g eslint
+      - npm install eslint-plugin-react
+    script:
+      - eslint -- src/
+
+  build-client:
+    stage: build
+    before_script:
+      - cd sensor-radix-client
+      - npm install
+    script:
+      - npm build
