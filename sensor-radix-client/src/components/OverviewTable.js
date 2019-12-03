@@ -61,23 +61,24 @@ class OverviewTable extends Component {
             .then(data => {
               let groupedData = lodash.groupBy(data, 'tag') // { "brasil.sudeste.sensor01": <data> }
               console.log(groupedData)
-              Object.keys(groupedData).forEach((key, index) => {
+              Object.keys(groupedData).forEach((key) => {
                   let keyArr = key.split('.') // separando em [país, região, sensor]
                   keyArr.pop()
                   let regionKey = keyArr.join('.')
+                  let hasProp = Object.prototype.hasOwnProperty
                   keyArr.pop()
                   let countryKey = keyArr
                   myData = {
                       ...myData,
                       [key]: groupedData[key].length,
-                      [regionKey]: myData.hasOwnProperty(regionKey) ? myData.regionKey + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0,
-                      [countryKey]: myData.hasOwnProperty(countryKey) ? myData[countryKey] + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0
+                      [regionKey]: hasProp.call(myData, regionKey) ? myData.regionKey + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0,
+                      [countryKey]: hasProp.call(myData, countryKey) ? myData[countryKey] + groupedData[key].length || myData[countryKey] : groupedData[key].length || 0
                   } 
               });
 
               // Formatando dados para caberem na tabela.
               let tableData = []
-              Object.keys(myData).forEach((key, index) => {
+              Object.keys(myData).forEach((key) => {
                     let sensorGroup = { regiao: key, qtd: myData[key]}
                     tableData.push(sensorGroup)
               })

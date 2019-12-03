@@ -22,7 +22,7 @@ class Chart extends React.Component {
                         process.env.REACT_APP_API_URL.substring(0, process.env.REACT_APP_API_URL.length-1) : 
                         process.env.REACT_APP_API_URL 
         const API_PORT = process.env.REACT_APP_API_PORT
-        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX
+        const API_SUFFIX = process.env.REACT_APP_API_SUFFIX ? process.env.REACT_APP_API_SUFFIX : ""
         this.API_URL = API_URL + ':' + API_PORT + '/' + API_SUFFIX
     }
 
@@ -33,12 +33,12 @@ class Chart extends React.Component {
                                                 return r;
                                             }, Object.create(null));
         // Iterando chaves do objeto para corrigir o timestamp
-        Object.keys(groupedData).forEach(function(sensor,index) {
+        Object.keys(groupedData).forEach(function(sensor) {
             groupedData[sensor].map(e => {
                 return(e.timestamp = moment(e.timestamp).toDate())
             })
         });
-        Object.keys(groupedData).forEach((sensor, index) => groupedData[sensor]['color']=this.getRandomColor())
+        Object.keys(groupedData).forEach((sensor) => groupedData[sensor]['color']=this.getRandomColor())
         this.setState({ groupedData })
     }
 
@@ -93,7 +93,7 @@ class Chart extends React.Component {
 
     render(){
         let legendData = []
-        Object.keys(this.state.groupedData).forEach((key, index) => {
+        Object.keys(this.state.groupedData).forEach((key) => {
             legendData.push(this.buildLegend(key))
         })
         return(
