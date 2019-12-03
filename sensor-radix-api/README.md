@@ -6,6 +6,7 @@ Este é o repositório da aplicação do lado servidor do desafio de sensores da
 
 - .NET Core 3.0 (ASP.NET)
 - Entity Framework
+- SQL Server (Developer)
 
 ## Instalação
 
@@ -53,3 +54,17 @@ docker run dev:Dockerfile
 ```
 
 Para informações extras sobre a elaboração desta solução, acesse o arquivo [PROJECT.md](./PROJECT.md).
+
+## Configuração
+
+A configuração do projeto está contida em [launchSettings.json](./Properties/launchSettings.json).
+
+### Variáveis de ambiente para ao software
+
+* ASPNETCORE_ENVIRONMENT - Representa o tipo de execução do software. (Development/Staging/Production)
+
+* CORS_ALLOWED - Representa os hosts que têm permissão de acesso ao método GET.
+
+* USE_IN_MEMORY_DB - Representa se irá utilizar a memória como banco de dados. (Caso contrário, é necessário configurar *ASPNETCORE_SQLCONNSTR*)
+
+* ASPNETCORE_SQLCONNSTR - Representa a string de conexão que será utilizada para acesso ao banco de dados (Apenas suportando versões de SQL Server)

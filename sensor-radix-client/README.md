@@ -2,6 +2,8 @@
 
 Este é o repositório da aplicação do lado cliente do desafio de sensores da Radix.
 
+Para informações extras sobre a elaboração desta solução, acesse o arquivo [PROJECT.md](./PROJECT.md).
+
 ## Tecnologias utilizadas
 
 - React
@@ -65,4 +67,15 @@ Cria um build de release da aplicação e inicia um servidor para teste da solu�
 
 Inicia a API de mock sem iniciar a aplicação.
 
-Para informações extras sobre a elaboração desta solução, acesse o arquivo [PROJECT.md](./PROJECT.md).
+
+## Configuração
+
+Os arquivos .env.<ambiente> definem as variáveis de ambiente que serão acessíveis durante a execução dos devidos ambientes.
+
+### Variáveis de ambiente para ao software
+
+* REACT_APP_API_URL - Representa a URL da API em execução.
+
+* REACT_APP_API_PORT - Representa a porta da API em execução.
+
+* REACT_APP_API_SUFFIX - Representa o sufixo que o programa irá utilizar para acesso à API.
