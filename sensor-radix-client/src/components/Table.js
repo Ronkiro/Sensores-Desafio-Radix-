@@ -58,7 +58,9 @@ class Table extends Component {
         fetch(this.API_URL + param )
             .then(response => response.json())
             .then(data => {
-              data.map(e => e.timestamp = moment(e.timestamp).toDate() )
+              data.map(e => { 
+                return e.timestampDt = moment(e.timestampDt).toDate()
+              })
               this.setState({ data: data }) 
             })
             .catch(err => {

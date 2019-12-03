@@ -30,16 +30,20 @@ namespace sensor_radix_api
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowMyOrigin", 
-                    builder => builder.WithOrigins("http://localhost:1234",
-                                                   "http://localhost:5000",
-                                                   "http://10.0.0.100:1234")
-                                      .AllowAnyMethod()
-                                      .AllowAnyHeader()); 
+                    builder => builder.WithOrigins(Environment.GetEnvironmentVariable("CORS_ALLOWED"))
+                                        .AllowAnyMethod()
+                                        .AllowAnyHeader());
                 options.AddPolicy("AllowAnyOrigin",
-                    builder => builder.AllowAnyOrigin());
+                        builder => builder.AllowAnyOrigin());
             });
-            services.AddDbContext<SensorContext>(opt =>
-               opt.UseInMemoryDatabase("SensorList"));
+            if(Environment.GetEnvironmentVariable("USE_IN_MEMORY_DB") == "true") {
+                services.AddDbContext<SensorContext>(opt =>
+                    opt.UseInMemoryDatabase("SensorList"));
+            }
+            else {
+                services.AddDbContext<SensorContext>(opt => 
+                    opt.UseSqlServer(Environment.GetEnvironmentVariable("ASPNETCORE_SQLCONNSTR")));
+            }
             services.AddControllers();
             
         }
@@ -58,9 +62,7 @@ namespace sensor_radix_api
             app.UseRouting();
             
             app.UseCors(options => {
-                options.WithOrigins("http://localhost:1234",
-                                    "http://localhost:5000",
-                                    "http://10.0.0.100:1234");
+                options.WithOrigins(Environment.GetEnvironmentVariable("CORS_ALLOWED"));
             });
 
             app.UseAuthorization();

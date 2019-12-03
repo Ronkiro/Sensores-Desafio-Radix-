@@ -14,7 +14,10 @@
       "launchBrowser": true,
       "launchUrl": "api/sensors",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CORS_ALLOWED": "*",
+        "USE_IN_MEMORY_DB": "false",
+        "ASPNETCORE_SQLCONNSTR": ""
       }
     },
     "sensor_radix_api": {
@@ -23,7 +26,10 @@
       "launchUrl": "api/sensors",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CORS_ALLOWED": "*",
+        "USE_IN_MEMORY_DB": "true",
+        "ASPNETCORE_SQLCONNSTR": ""
       }
     }
   }
