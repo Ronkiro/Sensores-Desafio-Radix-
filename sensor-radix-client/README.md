@@ -5,11 +5,13 @@ Este é o repositório da aplicação do lado cliente do desafio de sensores da 
 ## Tecnologias utilizadas
 
 - React
-- Font Awesome
 - Material-UI
 - material-table
 - Victory.js
-- Moment
+- Moment.js
+- lodash
+- json-server
+- Faker.js
 
 ## Instalação
 
@@ -62,3 +64,5 @@ Cria um build de release da aplicação e inicia um servidor para teste da solu�
 ### `npm run mock:api`
 
 Inicia a API de mock sem iniciar a aplicação.
+
+Para informações extras sobre a elaboração desta solução, acesse o arquivo [PROJECT.md](./PROJECT.md).
