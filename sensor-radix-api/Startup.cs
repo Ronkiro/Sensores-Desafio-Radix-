@@ -62,7 +62,7 @@ namespace sensor_radix_api
             app.UseRouting();
             
             app.UseCors(options => {
-                options.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_HOSTS"));
+                options.WithOrigins(Environment.GetEnvironmentVariable("CORS_ALLOWED"));
             });
 
             app.UseAuthorization();
