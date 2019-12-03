@@ -20,7 +20,8 @@
     "eject": "react-scripts eject",
     "mock:api": "json-server fakedata.js --port 4000",
     "serve": "npm run build && serve -S build -l 1234",
-    "startmock": "concurrently \"npm start\" \"npm run mock:api\""
+    "startmock": "concurrently \"npm start\" \"npm run mock:api\"",
+    "lint": "eslint -- src/"
   },
   "eslintConfig": {
     "extends": "react-app"
