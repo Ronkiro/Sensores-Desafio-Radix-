@@ -59,7 +59,7 @@ class Table extends Component {
             .then(response => response.json())
             .then(data => {
               data.map(e => { 
-                e.timestampDt = moment(e.timestampDt).toDate()
+                return e.timestampDt = moment(e.timestampDt).toDate()
               })
               this.setState({ data: data }) 
             })
