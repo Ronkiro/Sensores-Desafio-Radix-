@@ -1,8 +1,11 @@
 dotnet:
+  image: microsoft/dotnet:3.0-sdk-alpine
   stages:
-      - test
       - build
-      - deploy
+  before_script:
+      - cd sensor-radix-api
+  script:
+      - dotnet publish -c Release -o out
 
 react:
   image: node:13.0.1
