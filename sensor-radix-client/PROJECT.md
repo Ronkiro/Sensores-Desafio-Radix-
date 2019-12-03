@@ -10,7 +10,7 @@ outros frameworks de outras linguagens, tem uma ótima solução, a **WebAPI**, 
 a arquitetura escolhida para o projeto como um todo. Num formato **cliente-servidor** 
 a solução teria a API (Usando ASP.NET Core 3) e um cliente (Usando React).
 
-[Para ler a descrição do projeto-cliente, clique aqui](..\sensor-radix-api\PROJECT.md)
+[Para ler a descrição do projeto-cliente, clique aqui](../sensor-radix-api/PROJECT.md)
 
 ## O projeto
 
